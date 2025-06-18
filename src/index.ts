@@ -1,23 +1,22 @@
 import express from 'express';
 import mongoose from 'mongoose';
-import jwt  from "jsonwebtoken"
+//import jwt  from "jsonwebtoken"
+//import  connectDB from './db.ts' doesnot work
+import connectDB from "./db";   connectDB();
+import User from './Routes/user'
+import UserModel from './models/userModel';
+
+
+
 const app =express();
-app.use('express')
+app.use(express.json());
+app.use("/api/v1",User);
+//code
 
 
-app.post("./api/v1/signin",(req,res)=>{
-
-})
-
-app.post("./api/v1/signup",(req,res)=>{
-
-})
-
-app.post("./api/v1/content" , (req, res)=>{
-
-})
-app.get("./api/v1/brain/:shareLink",(req,res)=>{
-
-})
-
- 
+app.get("/",(req,res)=>{
+    res.send("HELlLOOOOOOOOOOOOOOOOOOOOOOO")
+});
+ app.listen(3001,()=>{
+    console.log("Server in UP")
+ })
