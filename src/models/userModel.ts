@@ -4,13 +4,14 @@ import {Schema ,model} from'mongoose';
 import { isAssertsKeyword } from 'typescript';
 
 const UserSchema= new Schema({
-    user_name:{
+       username:{
         type:String,//string would be our Type script type not valid as runtime value
         required:true,
         maxLength:50,
         unique:true
     },password:{
-        type:String
+        type:String,
+        required:true
     },createdAt:{
         type:Date,
         default:Date.now
