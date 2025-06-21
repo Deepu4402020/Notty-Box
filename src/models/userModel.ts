@@ -1,24 +1,21 @@
-// this has Database scehma 
+import mongoose from "mongoose";
 
-import {Schema ,model} from'mongoose';
-import { isAssertsKeyword } from 'typescript';
-
-const UserSchema= new Schema({
-       username:{
-        type:String,//string would be our Type script type not valid as runtime value
-        required:true,
-        maxLength:50,
-        unique:true
-    },password:{
-        type:String,
-        required:true
-    },createdAt:{
-        type:Date,
-        default:Date.now
+const userSchema = new mongoose.Schema(
+  {
+    user_name: {
+      type: String,
+      required: true,
+      unique: true,
+      trim: true,
     },
+    password: {
+      type: String,
+      required: true,
+    },
+  },
+  { timestamps: true }
+);
 
-});
+const User = mongoose.model("User", userSchema);
 
-const UserModel =model("User",UserSchema )
-export default UserModel;
-//module.exports=UserModel
+export default User;

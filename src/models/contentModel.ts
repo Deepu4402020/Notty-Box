@@ -1,17 +1,12 @@
 import { Schema, model } from "mongoose";
 
-const contentSchema = new Schema(
-  {
-    content: {
-      type: String,
-      required: true,
-    },
+const contentSchema = new Schema({
+  content: {
+    type: String,
+    required: true,
   },
-  {
-    timestamps: true,
-  }
-);
+});
 
-const ContentModel = model("Content", contentSchema);
+const ContentModel = model("Content", contentSchema, "Contents");
 
 export default ContentModel;
