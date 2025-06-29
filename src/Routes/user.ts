@@ -4,6 +4,7 @@ import express from "express";
 const router = express.Router();
 import User from "../models/userModel";
 import Content from "../models/contentModel";
+import { AnyBulkWriteOperation } from "mongoose";
 //Routes
 
 //CRUD Operation
@@ -108,6 +109,42 @@ router.post("/users", async (req, res: any) => {
       message: "Content retrieved successfully",
       data: userContent,
     });
+  } catch (err: any) {
+    res.status(500).json({ error: err.message });
+  }
+});
+
+// Fetch all notes
+router.get("/notes", async (req, res) => {
+  try {
+    const notes = await Content.find();
+    res.status(200).json({ notes });
+  } catch (err: any) {
+    res.status(500).json({ error: err.message });
+  }
+});
+
+// Add a new note
+router.post("/notes", async (req, res: any) => {
+  try {
+    const { content } = req.body;
+    const newNote = new Content({ content });
+    await newNote.save();
+    res.status(201).json({ note: newNote });
+  } catch (err: any) {
+    res.status(500).json({ error: err.message });
+  }
+});
+
+// Delete a note
+router.delete("/notes/:id", async (req, res: any) => {
+  try {
+    const { id } = req.params;
+    const deletedNote = await Content.findByIdAndDelete(id);
+    if (!deletedNote) {
+      return res.status(404).json({ error: "Note not found" });
+    }
+    res.status(200).json({ message: "Note deleted successfully" });
   } catch (err: any) {
     res.status(500).json({ error: err.message });
   }

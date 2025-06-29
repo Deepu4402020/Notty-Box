@@ -10,3 +10,5 @@ const contentSchema = new Schema({
 const ContentModel = model("Content", contentSchema, "Contents");
 
 export default ContentModel;
+/*
+ */

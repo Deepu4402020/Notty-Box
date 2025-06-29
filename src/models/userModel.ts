@@ -1,21 +1,23 @@
-import mongoose from "mongoose";
+// this has Database scehma
 
-const userSchema = new mongoose.Schema(
-  {
-    user_name: {
-      type: String,
-      required: true,
-      unique: true,
-      trim: true,
-    },
-    password: {
-      type: String,
-      required: true,
-    },
+import { Schema, model } from "mongoose";
+
+const UserSchema = new Schema({
+  user_name: {
+    type: String, //string would be our Type script type not valid as runtime value
+    required: true,
+    maxLength: 50,
+    unique: true,
   },
-  { timestamps: true }
-);
+  password: {
+    type: String,
+    required: true,
+  },
+  createdAt: {
+    type: Date,
+    default: Date.now,
+  },
+});
 
-const User = mongoose.model("User", userSchema);
-
-export default User;
+const UserModel = model("User", UserSchema);
+export default UserModel;
