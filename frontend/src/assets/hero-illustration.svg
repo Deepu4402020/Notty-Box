@@ -1,0 +1,69 @@
+<svg width="400" height="300" viewBox="0 0 400 300" fill="none" xmlns="http://www.w3.org/2000/svg">
+  <!-- Background circles -->
+  <circle cx="200" cy="150" r="120" fill="url(#gradient1)" opacity="0.1"/>
+  <circle cx="200" cy="150" r="80" fill="url(#gradient2)" opacity="0.15"/>
+  
+  <!-- Notebook illustration -->
+  <rect x="120" y="80" width="160" height="140" rx="8" fill="url(#gradient3)" stroke="url(#gradient4)" stroke-width="2"/>
+  
+  <!-- Notebook lines -->
+  <line x1="140" y1="110" x2="260" y2="110" stroke="rgba(255,255,255,0.3)" stroke-width="1"/>
+  <line x1="140" y1="130" x2="260" y2="130" stroke="rgba(255,255,255,0.3)" stroke-width="1"/>
+  <line x1="140" y1="150" x2="260" y2="150" stroke="rgba(255,255,255,0.3)" stroke-width="1"/>
+  <line x1="140" y1="170" x2="260" y2="170" stroke="rgba(255,255,255,0.3)" stroke-width="1"/>
+  <line x1="140" y1="190" x2="220" y2="190" stroke="rgba(255,255,255,0.3)" stroke-width="1"/>
+  
+  <!-- Pencil -->
+  <rect x="270" y="90" width="4" height="60" rx="2" fill="url(#gradient5)"/>
+  <polygon points="272,90 276,90 274,85" fill="url(#gradient6)"/>
+  
+  <!-- Floating elements -->
+  <circle cx="80" cy="60" r="8" fill="url(#gradient7)" opacity="0.6"/>
+  <circle cx="320" cy="80" r="6" fill="url(#gradient8)" opacity="0.6"/>
+  <circle cx="90" cy="220" r="10" fill="url(#gradient9)" opacity="0.6"/>
+  <circle cx="310" cy="240" r="4" fill="url(#gradient10)" opacity="0.6"/>
+  
+  <!-- Gradients -->
+  <defs>
+    <linearGradient id="gradient1" x1="0%" y1="0%" x2="100%" y2="100%">
+      <stop offset="0%" style="stop-color:#3B82F6;stop-opacity:1" />
+      <stop offset="100%" style="stop-color:#8B5CF6;stop-opacity:1" />
+    </linearGradient>
+    <linearGradient id="gradient2" x1="0%" y1="0%" x2="100%" y2="100%">
+      <stop offset="0%" style="stop-color:#8B5CF6;stop-opacity:1" />
+      <stop offset="100%" style="stop-color:#EC4899;stop-opacity:1" />
+    </linearGradient>
+    <linearGradient id="gradient3" x1="0%" y1="0%" x2="100%" y2="100%">
+      <stop offset="0%" style="stop-color:rgba(255,255,255,0.1)" />
+      <stop offset="100%" style="stop-color:rgba(255,255,255,0.05)" />
+    </linearGradient>
+    <linearGradient id="gradient4" x1="0%" y1="0%" x2="100%" y2="100%">
+      <stop offset="0%" style="stop-color:rgba(255,255,255,0.3)" />
+      <stop offset="100%" style="stop-color:rgba(255,255,255,0.1)" />
+    </linearGradient>
+    <linearGradient id="gradient5" x1="0%" y1="0%" x2="100%" y2="100%">
+      <stop offset="0%" style="stop-color:#F59E0B" />
+      <stop offset="100%" style="stop-color:#D97706" />
+    </linearGradient>
+    <linearGradient id="gradient6" x1="0%" y1="0%" x2="100%" y2="100%">
+      <stop offset="0%" style="stop-color:#EF4444" />
+      <stop offset="100%" style="stop-color:#DC2626" />
+    </linearGradient>
+    <linearGradient id="gradient7" x1="0%" y1="0%" x2="100%" y2="100%">
+      <stop offset="0%" style="stop-color:#3B82F6" />
+      <stop offset="100%" style="stop-color:#1D4ED8" />
+    </linearGradient>
+    <linearGradient id="gradient8" x1="0%" y1="0%" x2="100%" y2="100%">
+      <stop offset="0%" style="stop-color:#8B5CF6" />
+      <stop offset="100%" style="stop-color:#7C3AED" />
+    </linearGradient>
+    <linearGradient id="gradient9" x1="0%" y1="0%" x2="100%" y2="100%">
+      <stop offset="0%" style="stop-color:#10B981" />
+      <stop offset="100%" style="stop-color:#059669" />
+    </linearGradient>
+    <linearGradient id="gradient10" x1="0%" y1="0%" x2="100%" y2="100%">
+      <stop offset="0%" style="stop-color:#F59E0B" />
+      <stop offset="100%" style="stop-color:#D97706" />
+    </linearGradient>
+  </defs>
+</svg> 

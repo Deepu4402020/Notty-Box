@@ -21,7 +21,11 @@ router.post("/signin", async (req: any, res: any) => {
     }
 
     //For now just consoleing
-    res.json({ messsage: "Access granted" });
+    res.json({
+      success: true,
+      message: "Access granted",
+      username: user_Data.user_name,
+    });
   } catch (err: any) {
     res.status(500).json({ error: err.message });
   }
@@ -127,10 +131,50 @@ router.get("/notes", async (req, res) => {
 // Add a new note
 router.post("/notes", async (req, res: any) => {
   try {
-    const { content } = req.body;
-    const newNote = new Content({ content });
+    const { title, content } = req.body;
+    const newNote = new Content({ title, content });
     await newNote.save();
-    res.status(201).json({ note: newNote });
+    res.status(201).json({
+      success: true,
+      note: newNote,
+    });
+  } catch (err: any) {
+    res.status(500).json({ error: err.message });
+  }
+});
+
+// Get a single note by ID
+router.get("/notes/:id", async (req, res: any) => {
+  try {
+    const { id } = req.params;
+    const note = await Content.findById(id);
+    if (!note) {
+      return res.status(404).json({ error: "Note not found" });
+    }
+    res.status(200).json({ note });
+  } catch (err: any) {
+    res.status(500).json({ error: err.message });
+  }
+});
+
+// Update a note
+router.put("/notes/:id", async (req, res: any) => {
+  try {
+    const { id } = req.params;
+    const { title, content } = req.body;
+    const updatedNote = await Content.findByIdAndUpdate(
+      id,
+      { title, content },
+      { new: true }
+    );
+    if (!updatedNote) {
+      return res.status(404).json({ error: "Note not found" });
+    }
+    res.status(200).json({
+      success: true,
+      note: updatedNote,
+      message: "Note updated successfully",
+    });
   } catch (err: any) {
     res.status(500).json({ error: err.message });
   }
@@ -144,7 +188,39 @@ router.delete("/notes/:id", async (req, res: any) => {
     if (!deletedNote) {
       return res.status(404).json({ error: "Note not found" });
     }
-    res.status(200).json({ message: "Note deleted successfully" });
+    res.status(200).json({
+      success: true,
+      message: "Note deleted successfully",
+    });
+  } catch (err: any) {
+    res.status(500).json({ error: err.message });
+  }
+});
+
+// Check if user is logged in
+router.get("/users/is-logged", async (req, res: any) => {
+  try {
+    // For now, we'll return a mock response since we don't have session management
+    // In a real application, you would check the session/token here
+    res.status(200).json({
+      success: true,
+      username: "demo_user", // This should come from session/token
+      message: "User is logged in",
+    });
+  } catch (err: any) {
+    res.status(500).json({ error: err.message });
+  }
+});
+
+// Logout endpoint
+router.get("/users/logout", async (req, res: any) => {
+  try {
+    // For now, we'll return a success response
+    // In a real application, you would clear the session/token here
+    res.status(200).json({
+      success: true,
+      message: "Logged out successfully",
+    });
   } catch (err: any) {
     res.status(500).json({ error: err.message });
   }
