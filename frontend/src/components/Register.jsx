@@ -1,14 +1,13 @@
-import { useState, useContext, useEffect } from "react";
+import { useState, useEffect, useContext } from "react";
 import { Link, useHistory } from "react-router-dom";
 import axios from "axios";
+import { AuthContext } from "../AuthContext";
 
-import { AuthContext } from "../context/AuthContext";
-
-const Login = () => {
+const Register = () => {
   // State Variables
+  const [username, setUsername] = useState("");
   const [email, setEmail] = useState("");
   const [password, setPassword] = useState("");
-  const [isLoading, setIsLoading] = useState(true);
   const [hint, setHint] = useState("");
 
   // Initialize history
@@ -23,52 +22,41 @@ const Login = () => {
 
   // Functions
   const handleSubmit = () => {
-    // console.log(email, password);
+    // console.log(username, email, password);
 
-    const url = `${process.env.REACT_APP_BACKEND_BASE_URL}/signin`;
-    const body = { user_name: email, password };
-    const options = {
-      withCredentials: true,
-      Credential: "include",
-      headers: {
-        "Content-Type": "application/json",
-      },
-    };
+    const url = `${process.env.REACT_APP_BACKEND_BASE_URL}/signup`;
+    const body = { user_name: username, password };
+    const headers = { "Content-Type": "application/json" };
+    // console.log(body);
 
-    // POST user data to /signin on backend
+    // POST user data to /signup on backend
     axios
-      .post(url, body, options)
+      .post(url, body, { headers })
       .then((res) => {
-        setIsLoading(true);
-
         if (res.data.success) {
-          console.log(res.data);
           setHint(res.data.message);
-          setIsLoggedIn(true);
-          history.push("/");
+          history.push("/login");
         }
       })
-      .then(() => {
-        setIsLoading(false);
-      })
       .catch((err) => {
-        setIsLoading(false);
-        setIsLoggedIn(false);
         // console.log(err.response.data);
         if (err.response?.data?.error) {
           setHint(err.response.data.error);
         } else {
-          setHint("Please input valid credentials");
+          setHint("User validation failed. Input valid credentials");
         }
       });
   };
+
   return (
     <div className="h-screen bg-bg-black text-font-main font-Mulish sm:flex justify-center items-center">
       <div className="p-4 flex flex-col justify-around h-full sm:w-10/12 md:w-7/12 lg:w-5/12 ">
         <div>
-          <h1 className="text-4xl font-bold ">Let's sign you in.</h1>
+          <h1 className="text-4xl font-bold ">
+            It's our pleasure to have you here.
+          </h1>
           <p className="capitalize text-2xl mt-3 text-gray-300">
-            Welcome back. We missed you.
+            Let's register you!
           </p>
         </div>
         <div>
@@ -76,6 +64,14 @@ const Login = () => {
             <p className="w-11/12 text-center mt-3 text-lg text-font-secondary rounded">
               {hint}
             </p>
+            <input
+              type="text"
+              className="outline-none w-full p-4 my-3 rounded-lg border border-gray-700 bg-bg-black text-lg"
+              placeholder="Username"
+              autoComplete="off"
+              value={username}
+              onChange={(e) => setUsername(e.target.value)}
+            />
             <input
               type="email"
               className="outline-none w-full p-4 my-3 rounded-lg border border-gray-700 bg-bg-black text-lg"
@@ -96,16 +92,15 @@ const Login = () => {
         </div>
         <div>
           <button
-            type="submit"
             className="w-full p-4 my-3 rounded-lg text-black font-bold text-xl bg-font-main"
             onClick={handleSubmit}
           >
             SUBMIT
           </button>
           <p className="text-center text-gray-400">
-            Don't have an account?&nbsp;
-            <Link to="/register" className="underline">
-              Register a new user
+            Have an account already?&nbsp;
+            <Link to="/login" className="underline">
+              Login to your account
             </Link>
           </p>
         </div>
@@ -114,4 +109,4 @@ const Login = () => {
   );
 };
 
-export default Login;
+export default Register;

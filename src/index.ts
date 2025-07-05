@@ -14,9 +14,6 @@ app.use(express.json());
 app.use("/api/v1", User);
 //code
 
-app.get("/", (req, res) => {
-  res.send("HELlLOOOOOOOOOOOOOOOOOOOOOOO");
-});
 app.listen(3001, () => {
   console.log("Server in UP");
 });

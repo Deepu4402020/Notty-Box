@@ -2,8 +2,7 @@
 import { useEffect, useState, useContext } from "react";
 import { useHistory } from "react-router-dom";
 import axios from "axios";
-
-import { AuthContext } from "../context/AuthContext";
+import { AuthContext } from "../AuthContext";
 
 const Create = () => {
   const [title, setTitle] = useState("");

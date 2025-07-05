@@ -6,22 +6,21 @@ import {
   Switch,
   useHistory,
 } from "react-router-dom";
-import { AuthContext } from "./context/AuthContext";
+import { AuthContext } from "./AuthContext";
 import Create from "./components/Create";
 import Dashboard from "./components/Dashboard";
 import FullNote from "./components/FullNote";
 import Login from "./components/Login";
 import Register from "./components/Register";
-
 import axios from "axios";
-
+// Main component
 function App() {
   const [username, setUsername] = useState("");
   const [isLoggedIn, setIsLoggedIn] = useState(false);
   const history = useHistory();
 
   useEffect(() => {
-    const URL = `${process.env.REACT_APP_BACKEND_BASE_URL}/users/is-logged`;
+    const URL = `${process.env.REACT_APP_BACKEND_BASE_URL}/api/v1/users/is-logged`;
     const options = {
       withCredentials: true,
       Credential: "include",
@@ -80,9 +79,6 @@ function App() {
           <Route exact path="/:id">
             <FullNote />
           </Route>
-
-          {/* 404 Route */}
-          {/* <Route exact path="*"></Route> */}
         </Switch>
       </Router>
     </AuthContext.Provider>
