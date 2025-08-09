@@ -1,6 +1,5 @@
 //Database logic here
 //create user models nad schemas
-//clusters's string from mongoDB atlas mongodb+srv://deepu4402020:vAnfa2uLdzrwAzs9@cluster0.vn00iyu.mongodb.net/
 import dotenv from "dotenv";
 dotenv.config();
 import mongoose from "mongoose";
