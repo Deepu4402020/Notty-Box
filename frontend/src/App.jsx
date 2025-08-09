@@ -1,11 +1,5 @@
 import { useState, useEffect } from "react";
-import {
-  BrowserRouter,
-  BrowserRouter as Router,
-  Route,
-  Switch,
-  useHistory,
-} from "react-router-dom";
+import { Routes, Route, Navigate } from "react-router-dom";
 import { AuthContext } from "./AuthContext";
 import Create from "./components/Create";
 import Dashboard from "./components/Dashboard";
@@ -17,10 +11,10 @@ import axios from "axios";
 function App() {
   const [username, setUsername] = useState("");
   const [isLoggedIn, setIsLoggedIn] = useState(false);
-  const history = useHistory();
+  
 
   useEffect(() => {
-    const URL = `${process.env.REACT_APP_BACKEND_BASE_URL}/api/v1/users/is-logged`;
+    const URL = `${import.meta.env.VITE_BACKEND_BASE_URL}/users/is-logged`;
     const options = {
       withCredentials: true,
       Credential: "include",
@@ -59,28 +53,19 @@ function App() {
 
   return (
     <AuthContext.Provider value={{ username, isLoggedIn, setIsLoggedIn }}>
-      <Router>
-        <Switch>
-          {/* Auth Routes */}
-          <Route exact path="/login">
-            <Login />
-          </Route>
-          <Route exact path="/register">
-            <Register />
-          </Route>
+      <Routes>
+        {/* Auth Routes */}
+        <Route path="/login" element={<Login />} />
+        <Route path="/register" element={<Register />} />
 
-          {/* protected Routes */}
-          <Route exact path="/">
-            <Dashboard />
-          </Route>
-          <Route exact path="/create">
-            <Create />
-          </Route>
-          <Route exact path="/:id">
-            <FullNote />
-          </Route>
-        </Switch>
-      </Router>
+        {/* protected Routes */}
+        <Route path="/" element={<Dashboard />} />
+        <Route path="/create" element={<Create />} />
+        <Route path="/:id" element={<FullNote />} />
+
+        {/* fallback */}
+        <Route path="*" element={<Navigate to="/" replace />} />
+      </Routes>
     </AuthContext.Provider>
   );
 }

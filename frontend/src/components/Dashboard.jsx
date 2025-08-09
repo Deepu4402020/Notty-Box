@@ -1,7 +1,7 @@
 import Note from "./Note";
 import { TiDocumentAdd } from "react-icons/ti";
 import { CgLogOut } from "react-icons/cg";
-import { useHistory } from "react-router-dom";
+import { useNavigate } from "react-router-dom";
 import { useState, useEffect, useContext } from "react";
 import axios from "axios";
 
@@ -12,7 +12,7 @@ const Dashboard = () => {
   const [data, setData] = useState();
   const [isLoading, setIsLoading] = useState(true);
   const [error, setError] = useState();
-  const history = useHistory();
+  const navigate = useNavigate();
 
   const { username, isLoggedIn, setIsLoggedIn } = useContext(AuthContext);
 
@@ -22,7 +22,7 @@ const Dashboard = () => {
 
   // Functions
   const getNotes = () => {
-    const url = `${process.env.REACT_APP_BACKEND_BASE_URL}/notes`;
+    const url = `${import.meta.env.VITE_BACKEND_BASE_URL}/notes`;
     const options = {
       withCredentials: true,
       Credential: "include",
@@ -50,7 +50,7 @@ const Dashboard = () => {
       });
   };
   const handleLogout = () => {
-    const url = `${process.env.REACT_APP_BACKEND_BASE_URL}/users/logout`;
+    const url = `${import.meta.env.VITE_BACKEND_BASE_URL}/users/logout`;
     const options = {
       withCredentials: true,
       Credential: "include",
@@ -64,7 +64,7 @@ const Dashboard = () => {
       .then((res) => {
         console.log("Logged Out");
         setIsLoggedIn(false);
-        history.push("/login");
+        navigate("/login");
       })
       .catch((error) => console.log(error));
   };
@@ -118,7 +118,7 @@ const Dashboard = () => {
             <div
               className=" rounded-full transition ease-in-out duration-150 text-3xl p-2 flex justify-around items-center cursor-pointer transform hover:-translate-y-1"
               title="Add New Note"
-              onClick={() => history.push("/create")}
+              onClick={() => navigate("/create")}
             >
               <TiDocumentAdd />
               <span className=" hidden md:block ml-1 text-xl">Add Note</span>

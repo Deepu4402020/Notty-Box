@@ -1,6 +1,6 @@
 // Create new Notes -- Component
 import { useEffect, useState, useContext } from "react";
-import { useHistory } from "react-router-dom";
+import { useNavigate } from "react-router-dom";
 import axios from "axios";
 import { AuthContext } from "../AuthContext";
 
@@ -9,7 +9,7 @@ const Create = () => {
   const [content, setContent] = useState("");
   const [isContentTyped, setIsContentTyped] = useState(false);
   const [isLoading, setIsLoading] = useState(true);
-  const history = useHistory();
+  const navigate = useNavigate();
 
   const { isLoggedIn } = useContext(AuthContext);
 
@@ -19,7 +19,7 @@ const Create = () => {
 
   const handleNewNote = () => {
     if (title.trim() !== "" && content.trim() !== "") {
-      const url = `${process.env.REACT_APP_BACKEND_BASE_URL}/notes`;
+      const url = `${import.meta.env.VITE_BACKEND_BASE_URL}/notes`;
       const body = { title, content };
       const options = {
         withCredentials: true,
@@ -32,7 +32,7 @@ const Create = () => {
         .post(url, body, options)
         .then((res) => {
           if (res.data.success) {
-            history.push("/");
+            navigate("/");
           } else {
             console.log("Failed to create note");
           }
@@ -42,7 +42,7 @@ const Create = () => {
         });
     }
 
-    history.push("/");
+    navigate("/");
   };
   return (
     <div className="h-screen bg-bg-black text-font-main font-Mulish ">

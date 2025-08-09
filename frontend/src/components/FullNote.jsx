@@ -1,6 +1,5 @@
 import { useState, useEffect, useContext } from "react";
-import { useParams } from "react-router-dom";
-import { useHistory } from "react-router-dom";
+import { useParams, useNavigate } from "react-router-dom";
 import { MdDelete } from "react-icons/md";
 
 import axios from "axios";
@@ -15,7 +14,7 @@ const FullNote = () => {
   const [isLoading, setIsLoading] = useState(true);
   const [error, setError] = useState();
 
-  const history = useHistory();
+  const navigate = useNavigate();
   const { id } = useParams();
 
   const { isLoggedIn } = useContext(AuthContext);
@@ -26,7 +25,7 @@ const FullNote = () => {
 
   // Functions
   const getNote = () => {
-    const url = `${process.env.REACT_APP_BACKEND_BASE_URL}/notes/${id}`;
+    const url = `${import.meta.env.VITE_BACKEND_BASE_URL}/notes/${id}`;
     const options = {
       withCredentials: true,
       Credential: "include",
@@ -55,7 +54,7 @@ const FullNote = () => {
       });
   };
   const handleEdit = () => {
-    const url = `${process.env.REACT_APP_BACKEND_BASE_URL}/notes/${id}`;
+    const url = `${import.meta.env.VITE_BACKEND_BASE_URL}/notes/${id}`;
     const body = { title, content };
     const options = {
       withCredentials: true,
@@ -68,7 +67,7 @@ const FullNote = () => {
       .put(url, body, options)
       .then((res) => {
         if (res.data.success) {
-          history.push("/");
+          navigate("/");
         }
       })
       .catch((error) => {
@@ -77,7 +76,7 @@ const FullNote = () => {
   };
 
   const handleDelete = () => {
-    const url = `${process.env.REACT_APP_BACKEND_BASE_URL}/notes/${id}`;
+    const url = `${import.meta.env.VITE_BACKEND_BASE_URL}/notes/${id}`;
     const options = {
       withCredentials: true,
       Credential: "include",
@@ -89,7 +88,7 @@ const FullNote = () => {
       .delete(url, options)
       .then((res) => {
         if (res.data.success) {
-          history.push("/");
+          navigate("/");
         }
       })
       .catch((error) => {

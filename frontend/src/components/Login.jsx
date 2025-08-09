@@ -1,5 +1,5 @@
 import { useState, useContext, useEffect } from "react";
-import { Link, useHistory } from "react-router-dom";
+import { Link, useNavigate } from "react-router-dom";
 import axios from "axios";
 
 import { AuthContext } from "../AuthContext";
@@ -11,19 +11,19 @@ const Login = () => {
   const [isLoading, setIsLoading] = useState(true);
   const [hint, setHint] = useState("");
 
-  // Initialize history
-  const history = useHistory();
+  // Initialize navigate (v6+)
+  const navigate = useNavigate();
 
   const { isLoggedIn, setIsLoggedIn } = useContext(AuthContext);
 
   // TODO: CHECK IF USER IS LOGGED IN ALREADY
   useEffect(() => {
-    if (isLoggedIn) history.push("/");
+    if (isLoggedIn) navigate("/");
   }, [isLoggedIn]);
 
   // Functions
   const handleSubmit = () => {
-    const url = `${process.env.REACT_APP_BACKEND_BASE_URL}/signin`;
+    const url = `${import.meta.env.VITE_BACKEND_BASE_URL}/signin`;
     const body = { user_name: email, password };
     const options = {
       withCredentials: true,
@@ -43,7 +43,7 @@ const Login = () => {
           console.log(res.data);
           setHint(res.data.message);
           setIsLoggedIn(true);
-          history.push("/");
+          navigate("/");
         }
       })
       .then(() => {
@@ -60,52 +60,54 @@ const Login = () => {
       });
   };
   return (
-    <div className="h-screen bg-bg-black text-font-main font-Mulish sm:flex justify-center items-center">
-      <div className="p-4 flex flex-col justify-around h-full sm:w-10/12 md:w-7/12 lg:w-5/12 ">
-        <div>
-          <h1 className="text-4xl font-bold ">Let's sign you in.</h1>
+    <div className="min-h-screen bg-dark-900 text-white font-sans flex items-center justify-center bg-pattern">
+      <div className="glass-effect rounded-2xl p-8 shadow-soft w-11/12 sm:w-9/12 md:w-7/12 lg:w-5/12">
+        <div className="mb-6">
+          <h1 className="text-4xl font-bold">Let's sign you in.</h1>
           <p className="capitalize text-2xl mt-3 text-gray-300">
             Welcome back. We missed you.
           </p>
         </div>
-        <div>
-          <div className="">
-            <p className="w-11/12 text-center mt-3 text-lg text-font-secondary rounded">
-              {hint}
-            </p>
-            <input
-              type="email"
-              className="outline-none w-full p-4 my-3 rounded-lg border border-gray-700 bg-bg-black text-lg"
-              placeholder="Email"
-              autoComplete="off"
-              value={email}
-              onChange={(e) => setEmail(e.target.value)}
-            />
-            <input
-              type="password"
-              className="outline-none w-full p-4 my-3 rounded-lg border border-gray-700 bg-bg-black text-lg"
-              placeholder="Password"
-              autoComplete="off"
-              value={password}
-              onChange={(e) => setPassword(e.target.value)}
-            />
-          </div>
-        </div>
-        <div>
-          <button
-            type="submit"
-            className="w-full p-4 my-3 rounded-lg text-black font-bold text-xl bg-font-main"
-            onClick={handleSubmit}
-          >
-            SUBMIT
-          </button>
-          <p className="text-center text-gray-400">
-            Don't have an account?&nbsp;
-            <Link to="/register" className="underline">
-              Register a new user
-            </Link>
+
+        {hint && (
+          <p className="w-full text-center mb-4 text-base text-gray-200">
+            {hint}
           </p>
+        )}
+
+        <div className="space-y-3">
+          <input
+            type="email"
+            className="input-modern w-full"
+            placeholder="Email"
+            autoComplete="off"
+            value={email}
+            onChange={(e) => setEmail(e.target.value)}
+          />
+          <input
+            type="password"
+            className="input-modern w-full"
+            placeholder="Password"
+            autoComplete="off"
+            value={password}
+            onChange={(e) => setPassword(e.target.value)}
+          />
         </div>
+
+        <button
+          type="submit"
+          className="btn-primary w-full mt-5"
+          onClick={handleSubmit}
+        >
+          Submit
+        </button>
+
+        <p className="text-center text-gray-300 mt-3">
+          Don't have an account?&nbsp;
+          <Link to="/register" className="underline text-primary-400 hover:text-primary-300">
+            Register a new user
+          </Link>
+        </p>
       </div>
     </div>
   );

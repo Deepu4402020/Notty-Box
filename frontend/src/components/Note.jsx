@@ -1,12 +1,12 @@
-import { useHistory } from "react-router-dom";
+import { useNavigate } from "react-router-dom";
 
 const Note = ({ bgColor, note }) => {
-  const history = useHistory();
+  const navigate = useNavigate();
   console.log(`Component: ${bgColor}`);
   return (
     <div
       className={`cursor-pointer w-full p-4 mb-4 ${bgColor} text-bg-black rounded-lg sm:w-1/4 sm:inline-block sm:mr-4 md:w-1/5`}
-      onClick={() => history.push(`/${note._id}`)}
+      onClick={() => navigate(`/${note._id}`)}
     >
       {/* TITLE */}
       <h3 className="text-2xl font-semibold truncate">{note.title}</h3>

@@ -17,7 +17,7 @@ router.post("/signin", async (req: any, res: any) => {
     if (!user_Data) return res.json({ error: "No user found" });
     const corr_Password = user_Data.password;
     if (password != corr_Password) {
-      return res.status(401).json({ Error: "Incorrrect credentials" });
+      return res.status(401).json({ error: "Incorrect credentials" });
     }
 
     //For now just consoleing
